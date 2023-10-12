@@ -14,6 +14,7 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
+  PageController pageController = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,37 +30,41 @@ class _WelcomeState extends State<Welcome> {
               alignment: Alignment.topCenter,
               children: [
                 PageView(
+                  controller: pageController,
                   onPageChanged: (index) {
                     state.page = index;
                     BlocProvider.of<WelcomeBloc>(context).add(WelcomeEvent());
                   },
                   children: [
                     _page(
-                      index: 0,
-                      context: context,
-                      buttonName: "next",
-                      imagePath: "image path",
-                      subTitle:
-                          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm",
-                      title: "First see Learning",
-                    ),
-                    _page(
                       index: 1,
                       context: context,
                       buttonName: "next",
-                      imagePath: "image path",
+                      imagePath: "assets/images/reading.png",
                       subTitle:
                           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm",
                       title: "First see Learning",
+                      pageController: pageController,
                     ),
                     _page(
-                      index: 1,
+                      index: 2,
                       context: context,
                       buttonName: "next",
-                      imagePath: "image path",
+                      imagePath: "assets/images/boy.png",
                       subTitle:
                           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm",
                       title: "First see Learning",
+                      pageController: pageController,
+                    ),
+                    _page(
+                      index: 3,
+                      context: context,
+                      buttonName: "get started",
+                      imagePath: "assets/images/man.png",
+                      subTitle:
+                          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dumm",
+                      title: "First see Learning",
+                      pageController: pageController,
                     ),
                   ],
                 ),
@@ -96,6 +101,7 @@ class _page extends StatelessWidget {
   final String title;
   final String subTitle;
   final String imagePath;
+  final PageController pageController; // Add pageController as a parameter
 
   const _page({
     super.key,
@@ -105,6 +111,7 @@ class _page extends StatelessWidget {
     required this.title,
     required this.subTitle,
     required this.imagePath,
+    required this.pageController, // Pass it in the constructor
   });
 
   @override
@@ -114,18 +121,17 @@ class _page extends StatelessWidget {
         SizedBox(
           width: 345.w,
           height: 345.w,
-          child: Text(
+          child: Image.asset(
             imagePath,
+            fit: BoxFit.cover,
           ),
         ),
-        Container(
-          child: Text(
-            title,
-            style: TextStyle(
-              color: Colors.black.withOpacity(0.5),
-              fontSize: 24.sp,
-              fontWeight: FontWeight.normal,
-            ),
+        Text(
+          title,
+          style: TextStyle(
+            color: Colors.black.withOpacity(0.5),
+            fontSize: 24.sp,
+            fontWeight: FontWeight.normal,
           ),
         ),
         Container(
@@ -142,33 +148,48 @@ class _page extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          margin: EdgeInsets.only(
-            top: 100.h,
-            left: 25.w,
-            right: 25.w,
-          ),
-          width: 325.w,
-          height: 50.h,
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.all(Radius.circular(15.w)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 1,
-                blurRadius: 2,
-                offset: const Offset(0, -1),
-              )
-            ],
-          ),
-          child: Center(
-            child: Text(
-              buttonName,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.normal,
+        GestureDetector(
+          onTap: () {
+            //within 0-2 index
+            if (index < 3) {
+              pageController.animateToPage(
+                index,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInCubic,
+              );
+              //animation
+            } else {
+              //jump new page
+            }
+          },
+          child: Container(
+            margin: EdgeInsets.only(
+              top: 100.h,
+              left: 25.w,
+              right: 25.w,
+            ),
+            width: 325.w,
+            height: 50.h,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.all(Radius.circular(15.w)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: const Offset(0, -1),
+                )
+              ],
+            ),
+            child: Center(
+              child: Text(
+                buttonName,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.normal,
+                ),
               ),
             ),
           ),
