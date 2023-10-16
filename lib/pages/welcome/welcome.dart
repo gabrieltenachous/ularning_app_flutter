@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ulearning_app/main.dart';
 import 'package:ulearning_app/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:ulearning_app/pages/welcome/bloc/welcome_events.dart';
 import 'package:ulearning_app/pages/welcome/bloc/welcome_states.dart';
@@ -94,6 +95,7 @@ class _WelcomeState extends State<Welcome> {
   }
 }
 
+// ignore: camel_case_types
 class _page extends StatelessWidget {
   final int index;
   final BuildContext context;
@@ -160,6 +162,9 @@ class _page extends StatelessWidget {
               //animation
             } else {
               //jump new page
+              //basicamente redireciona sem retronar a rota antiga
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil("signIn", (route) => false);
             }
           },
           child: Container(

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ulearning_app/app_blocs.dart';
 import 'package:ulearning_app/app_events.dart';
 import 'package:ulearning_app/app_states.dart';
+import 'package:ulearning_app/pages/sign_in/sign_in.dart';
 import 'package:ulearning_app/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:ulearning_app/pages/welcome/welcome.dart';
 
@@ -16,12 +17,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => WelcomeBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => WelcomeBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AppBlocs(),
+        ),
+      ],
       child: ScreenUtilInit(
-        builder: (context, child) => const MaterialApp(
+        builder: (context, child) => MaterialApp(
+          theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+              elevation: 0,
+              backgroundColor: Colors.white,
+            ),
+          ),
           debugShowCheckedModeBanner: false,
-          home: Welcome(),
+          home: const Welcome(),
+          routes: {
+            "myHomePage": (context) => const MyHomePage(),
+            "signIn": (context) => const SignIn(),
+          },
         ),
       ),
     );
@@ -35,7 +53,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Flutter Demo Home Page"),
       ),
       body: Center(
@@ -60,6 +78,7 @@ class MyHomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           FloatingActionButton(
+            heroTag: "herotTag1",
             onPressed: () => BlocProvider.of<AppBlocs>(context).add(
               Increment(),
             ),
@@ -67,6 +86,7 @@ class MyHomePage extends StatelessWidget {
             child: const Icon(Icons.add),
           ),
           FloatingActionButton(
+            heroTag: "HeroTag2",
             onPressed: () => BlocProvider.of<AppBlocs>(context).add(
               Decrement(),
             ),
