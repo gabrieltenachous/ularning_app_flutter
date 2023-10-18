@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ulearning_app/common/values/colors.dart';
 
 AppBar buildAppBar() {
   return AppBar(
     bottom: PreferredSize(
       preferredSize: const Size.fromHeight(1.0),
       child: Container(
-        color: Colors.grey.withOpacity(0.5),
+        color: AppColors.primarySecondaryBackground,
         //height difines the thickness of the line
         height: 1.0,
       ),
@@ -15,7 +16,7 @@ AppBar buildAppBar() {
       child: Text(
         "Log In",
         style: TextStyle(
-          color: Colors.black,
+          color: AppColors.primaryText,
           fontSize: 16.sp,
           fontWeight: FontWeight.normal,
         ),
@@ -126,10 +127,8 @@ Widget buildTextField(String hintText, String textType, String iconName) {
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent),
               ),
-              hintStyle: TextStyle(
-                color: Colors.grey.withOpacity(
-                  0.5,
-                ),
+              hintStyle: const TextStyle(
+                color: AppColors.primarySecondaryElementText,
               ),
             ),
             autocorrect: false,
@@ -150,10 +149,10 @@ Widget forgotPassword() {
       child: Text(
         "Forgot Password",
         style: TextStyle(
-          color: Colors.black,
+          color: AppColors.primaryText,
           decoration: TextDecoration.underline,
           fontSize: 12.sp,
-          decorationColor: Colors.blue,
+          decorationColor: AppColors.primaryText,
         ),
       ),
     ),
@@ -172,8 +171,16 @@ Widget buildLogInAdnRegButton(String buttonName, String buttonType) {
         top: buttonType == "login" ? 40.h : 20.h,
       ),
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: buttonType == "login"
+            ? AppColors.primaryElement
+            : AppColors.primaryBackground,
         borderRadius: BorderRadius.circular(15.w),
+        border: Border.all(
+          //check for registration button border color
+          color: buttonType == "login"
+              ? Colors.transparent
+              : AppColors.primaryFourthElementText,
+        ),
         boxShadow: [
           BoxShadow(
             spreadRadius: 1,
@@ -188,7 +195,9 @@ Widget buildLogInAdnRegButton(String buttonName, String buttonType) {
           buttonName,
           style: TextStyle(
             fontSize: 16.sp,
-            color: Colors.white,
+            color: buttonType == "login"
+                ? AppColors.primaryBackground
+                : AppColors.primaryText,
             fontWeight: FontWeight.normal,
           ),
         ),

@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ulearning_app/common/values/colors.dart';
 import 'package:ulearning_app/main.dart';
 import 'package:ulearning_app/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:ulearning_app/pages/welcome/bloc/welcome_events.dart';
@@ -76,10 +77,10 @@ class _WelcomeState extends State<Welcome> {
                     dotsCount: 3,
                     mainAxisAlignment: MainAxisAlignment.center,
                     decorator: DotsDecorator(
-                      color: Colors.grey,
+                      color: AppColors.primaryThirdElementText,
                       size: const Size.square(8.0),
                       activeSize: const Size(18.0, 8.0),
-                      activeColor: Colors.blue,
+                      activeColor: AppColors.primaryElement,
                       activeShape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
@@ -131,7 +132,7 @@ class _page extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            color: Colors.black.withOpacity(0.5),
+            color: AppColors.primaryText,
             fontSize: 24.sp,
             fontWeight: FontWeight.normal,
           ),
@@ -144,7 +145,7 @@ class _page extends StatelessWidget {
           child: Text(
             subTitle,
             style: TextStyle(
-              color: Colors.black.withOpacity(0.5),
+              color: AppColors.primarySecondaryElementText,
               fontSize: 14.sp,
               fontWeight: FontWeight.normal,
             ),
@@ -176,7 +177,7 @@ class _page extends StatelessWidget {
             width: 325.w,
             height: 50.h,
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: AppColors.primaryElement,
               borderRadius: BorderRadius.all(Radius.circular(15.w)),
               boxShadow: [
                 BoxShadow(
