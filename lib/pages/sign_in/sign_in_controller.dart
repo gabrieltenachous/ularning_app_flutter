@@ -20,9 +20,21 @@ class SignInController {
         if (emailAddress.isEmpty) {}
         if (password.isEmpty) {}
         try {
-          final credecial = await FirebaseAuth.instance
-              .signInWithEmailAndPassword(
-                  email: emailAddress, password: password);
+          final credecial =
+              await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: emailAddress,
+            password: password,
+          );
+          if (credecial.user == null) {}
+
+          if (credecial.user!.emailVerified) {}
+
+          var user = credecial.user;
+          if (user != null) {
+            //we got verified user from firebase
+          }else{
+            //we have error getting
+          }
         } catch (e) {}
       }
     } catch (e) {}
